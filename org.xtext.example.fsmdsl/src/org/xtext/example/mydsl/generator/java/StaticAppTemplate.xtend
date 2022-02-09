@@ -13,18 +13,18 @@ public class FsmCompiled {
         @SuppressWarnings("resource")
         Scanner myScanner = new Scanner(System.in);
         List<Etat> endstates = new LinkedList<Etat>();
-        Â«fsm»
+        «fsm»
         System.out.println("Demarrage du fsm...");
         
         /**** BEGIN DYNAMIC PART ****/
         // ETAT INITIAL
-        Â«initialState»
+        «initialState»
         
         // COMPILATION DES STATES
-        Â«states»
+        «states»
 
         // COMPILATION DES TRANSITIONS
-        Â«transitions»
+        «transitions»
         
         /**** END DYNAMIC PART ****/
         
