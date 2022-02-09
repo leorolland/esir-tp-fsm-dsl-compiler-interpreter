@@ -22,13 +22,15 @@ class JavaCompiler extends AbstractGenerator {
 	def CharSequence accept(FSM fsm, Visitor v) {
 		// Visite de l'état initial
 		var initialStateCompiled = v.visit(fsm.initialState);
+		// Visite des états finaux
+		var finalStatesCompiled = fsm.finalStates.filter(typeof(State)).filter(s | s != fsm.initialState).map[accept(v)].join('\n')
 		// Visite des autres états
-		var statesCompiled = fsm.eAllContents.toIterable.filter(typeof(State)).filter(s | s != fsm.initialState).map[accept(v)].join('\n')
+		var statesCompiled = fsm.eAllContents.toIterable.filter(typeof(State)).filter(s | s != fsm.initialState && !fsm.finalStates.contains(s)).map[accept(v)].join('\n')
 		// Visite des transitions
-		var transitionsCompiled = fsm.eAllContents.toIterable.filter(typeof(Transition)).map[accept(v)].join('\n')
+		var transitionsCompiled = fsm.eAllContents.toIterable.filter(typeof(Transition)).filter(s | s != fsm.initialState && !fsm.finalStates.contains(s)).map[accept(v)].join('\n')
 		// Compilation fsm
 		var fsmCompiled = v.visit(fsm)
-		return StaticAppTemplate.generate(fsmCompiled, initialStateCompiled, statesCompiled, transitionsCompiled) 
+		return StaticAppTemplate.generate(fsmCompiled, initialStateCompiled, finalStatesCompiled, statesCompiled, transitionsCompiled) 
 	}
 	
 	def CharSequence accept(State s, Visitor v) {

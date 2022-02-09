@@ -19,6 +19,7 @@
       <genFeatures documentation="Name of the FSM" createChild="false" ecoreFeature="ecore:EAttribute fsm.ecore#//FSM/name"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference fsm.ecore#//FSM/transitions"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference fsm.ecore#//FSM/initialState"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference fsm.ecore#//FSM/finalStates"/>
     </genClasses>
     <genClasses ecoreClass="fsm.ecore#//Transition">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute fsm.ecore#//Transition/name"/>

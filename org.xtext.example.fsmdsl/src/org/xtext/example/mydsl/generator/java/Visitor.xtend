@@ -12,14 +12,15 @@ class Visitor {
 			case "FSM": {
 				val f = o as FSM
 				return '''
-					FSM myfsm = new FSM("«f.name»",new LinkedList<Etat>());
+					FSM myfsm = new FSM("«f.name»");
 				'''
 			}
 			case "State": {
 				val s = o as State
 				return '''
-				Etat state_« s.name » = new Etat("« s.name »", "");
+				Etat state_« s.name » = new Etat("« s.name »", "« s.entry »");
 				myfsm.addEtat(state_« s.name »);
+				tmpList.add(state_« s.name »);
 				'''
 			}
 			case "Transition": {

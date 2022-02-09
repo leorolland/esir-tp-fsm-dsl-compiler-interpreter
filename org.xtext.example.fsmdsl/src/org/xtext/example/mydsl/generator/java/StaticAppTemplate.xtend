@@ -1,7 +1,7 @@
 package org.xtext.example.mydsl.generator.java
 
 class StaticAppTemplate {
-    def static generate(String fsm, String initialState, String states, String transitions) {
+    def static generate(String fsm, String initialState, String finalStates, String states, String transitions) {
         return '''
 import java.util.LinkedList;
 import java.util.List;
@@ -12,15 +12,24 @@ public class FsmCompiled {
     public static void main(String[] args) {
         @SuppressWarnings("resource")
         Scanner myScanner = new Scanner(System.in);
-        List<Etat> endstates = new LinkedList<Etat>();
+        // List<Etat> endstates = new LinkedList<Etat>();
         «fsm»
         System.out.println("Demarrage du fsm...");
         
         /**** BEGIN DYNAMIC PART ****/
-        // ETAT INITIAL
+        
+		// ETAT INITIAL
+		List<Etat> tmpList = new LinkedList<Etat>();
         «initialState»
+		myfsm.addEtatInital(tmpList.get(0));
+        
+        // ETAT Finaux
+		tmpList = new LinkedList<Etat>();
+        «finalStates»
+		myfsm.addEtatFinaux(tmpList);
         
         // COMPILATION DES STATES
+		tmpList = new LinkedList<Etat>();
         «states»
 
         // COMPILATION DES TRANSITIONS
@@ -34,8 +43,7 @@ public class FsmCompiled {
             String choice = myScanner.next();
             myfsm.moveToNewState(choice);
             
-            boolean endpossible = myfsm.AreWeOnFinalState();
-            if(endpossible) {
+            if(myfsm.AreWeOnFinalState()) {
                 System.out.print("Etat de fin detecte, voulez-vous vous arreter [Y/n] ? ");
                 String choice2 = myScanner.next();
                 if(choice2.equals("Y")) {
@@ -56,17 +64,10 @@ class FSM {
     private List<Transition> transitions;
 
 
-    public FSM(String name,List<Etat> finalStates) {
+    public FSM(String name) {
         this.name = name;
-        this.finalStates = finalStates;
         this.states = new LinkedList<Etat>();
         this.transitions = new LinkedList<Transition>();
-        
-        this.states.add(initState);
-        for(Etat e : finalStates) {
-            this.states.add(e);
-        }
-        this.currentState = this.initState;
     }
 
     public boolean moveToNewState(String action) {
@@ -85,7 +86,7 @@ class FSM {
     private List<Transition> findTransitionsCurrentState() {
         List<Transition> result = new LinkedList<Transition>();
         for( Transition t  : this.transitions) {
-            if(t.startEtat == this.currentState)
+            if(t.startEtat.equals(this.currentState))
                 result.add(t);
         }
         return result;
@@ -97,20 +98,24 @@ class FSM {
     
     public boolean AreWeOnFinalState() {
         for(Etat e : this.finalStates) {
-            if (this.currentState == e)
+            if (this.currentState.equals(e))
                 return true;
         }
         return false;
     }
 
     public List<Etat> addEtat(Etat state) {
-        if(this.initState == null) {
-            this.initState = state;
-            this.currentState = this.initState;
-        }
-
         this.states.add(state);
         return this.states;
+    }
+
+	public void addEtatInital(Etat state) {
+        this.initState = state;
+        this.currentState = this.initState;
+    }
+
+	public void addEtatFinaux(List<Etat> states) {
+        this.finalStates = states;
     }
 
     public List<Transition> addTransition(Transition t) {
@@ -119,7 +124,7 @@ class FSM {
     }
 }
 
-class Etat implements Comparable<Etat> {
+class Etat{
     public String name;
     public String content;
 
@@ -127,10 +132,13 @@ class Etat implements Comparable<Etat> {
         this.name = nom;
         this.content = c;
     }
-
+    
     @Override
-    public int compareTo(Etat state) {
-        return (state.name.compareTo(this.name) + state.content.compareTo(this.content)) / 2;
+    public boolean equals(Object o) {
+        if (o == this) {return true;}
+        if (!(o instanceof Etat)) {return false;}
+        Etat c = (Etat) o;
+        return this.name.equals(c.name) && this.content.equals(c.content);
     }
 }
 
