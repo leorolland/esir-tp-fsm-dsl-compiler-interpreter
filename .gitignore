@@ -1,0 +1,6 @@
+.metadata
+**/bin
+**/gemoc-gen
+**/src-gen
+**/test-bin
+**/xtend-gen

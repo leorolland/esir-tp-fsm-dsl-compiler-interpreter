@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fsm:FSM xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:fsm="http://www.example.org/fsm"
+    xsi:schemaLocation="http://www.example.org/fsm fsm.ecore"
+    name="door">
+  <states name="closed"
+      entry="close door"/>
+  <transitions
+      name="close"
+      from="//@initialState"
+      to="//@states.0"
+      event="off"/>
+  <initialState
+      name="opened"
+      entry="open door"/>
+</fsm:FSM>
