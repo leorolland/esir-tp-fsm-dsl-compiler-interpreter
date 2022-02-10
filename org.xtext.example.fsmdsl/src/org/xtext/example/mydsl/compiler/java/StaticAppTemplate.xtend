@@ -1,4 +1,4 @@
-package org.xtext.example.mydsl.generator.java
+package org.xtext.example.mydsl.compiler.java
 
 class StaticAppTemplate {
     def static generate(String fsm, String initialState, String finalStates, String states, String transitions) {

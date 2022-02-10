@@ -7,7 +7,8 @@ import org.eclipse.emf.ecore.resource.Resource
 import org.eclipse.xtext.generator.AbstractGenerator
 import org.eclipse.xtext.generator.IFileSystemAccess2
 import org.eclipse.xtext.generator.IGeneratorContext
-import org.xtext.example.mydsl.generator.java.JavaCompiler
+import org.xtext.example.mydsl.compiler.java.JavaCompiler
+import org.xtext.example.mydsl.interpreter.java.JavaInterpreter
 
 /**
  * Generates code from your model files on save.
@@ -18,7 +19,10 @@ class FsmDslGenerator extends AbstractGenerator {
 
 	override void doGenerate(Resource resource, IFileSystemAccess2 fsa, IGeneratorContext context) {
 		// Compile java executable project
-		(new JavaCompiler()).doGenerate(resource, fsa, context);
+		 (new JavaCompiler()).doGenerate(resource, fsa, context);
+		
+		// Interprete code
+		(new JavaInterpreter()).doGenerate(resource, fsa, context);
 	}
 	
 }

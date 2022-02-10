@@ -1,4 +1,4 @@
-package org.xtext.example.mydsl.generator.java
+package org.xtext.example.mydsl.compiler.java
 
 import org.eclipse.emf.ecore.EObject
 import fr.leorolland.fsm.model.fsm.FSM
