@@ -19,10 +19,10 @@ class FsmDslGenerator extends AbstractGenerator {
 
 	override void doGenerate(Resource resource, IFileSystemAccess2 fsa, IGeneratorContext context) {
 		// Compile java executable project
-		 (new JavaCompiler()).doGenerate(resource, fsa, context);
+//		(new JavaCompiler()).doGenerate(resource, fsa, context);
 		
 		// Interprete code
-		(new JavaInterpreter()).doGenerate(resource, fsa, context);
+		(new JavaInterpreter()).execute(resource);
 	}
 	
 }
