@@ -33,9 +33,10 @@ Based on lectures of Pr. Benoit Combemale ([view academic personal page](https:/
 2. Open Gemoc Studio and open the workspace
 3. Open `fsm.genmodel` (in `fr.leorolland.fsm.model`) 
 4. Right click on `FSM` > Generate all
-5. Right click on `GenerateFsmDsl.mwe2` (in `org.xtext.example.fsmdsl` > src > mysql) > Run as > MWE2 Workflow
-6. Right click on `org.xtext.example.fsmdsl.ide` > Run as > Eclipse Application
-7. Create a project 
-8. Create a `example.fsm` with the following content
-9. Save
-10. View and execute in `src-codegen`
+5. Comment line to only run the java compiler (not the interpreter) [JavaCompiler.xtend#L25](org.xtext.example.fsmdsl/src/org/xtext/example/mydsl/generator/FsmDslGenerator.xtend#L25)
+6. Right click on `GenerateFsmDsl.mwe2` (in `org.xtext.example.fsmdsl` > src > mysql) > Run as > MWE2 Workflow
+7. Right click on `org.xtext.example.fsmdsl.ide` > Run as > Eclipse Application
+8. Create a project 
+9. Create a `example.fsm` with the following content
+10. Save
+11. View and execute in `src-codegen`
